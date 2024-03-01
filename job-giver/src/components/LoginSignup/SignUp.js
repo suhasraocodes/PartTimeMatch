@@ -1,11 +1,12 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
-
-import { validate } from "./validate";
-import { notify } from "./toast";
+import app from "../../Firebase/firebase";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { validate } from "../validate";
+import { notify } from "../toast";
 import styles from "./SignUp.module.css";
 
 const SignUp = () => {
@@ -17,8 +18,10 @@ const SignUp = () => {
         isAccepted: false,
     });
 
+    const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
+    const auth = getAuth(app);
 
     useEffect(() => {
         setErrors(validate(data, "signup"));
@@ -37,12 +40,22 @@ const SignUp = () => {
         setTouched({ ...touched, [event.target.name]: true });
     };
 
-    const submitHandler = (event) => {
+    const submitHandler = async (event) => {
         event.preventDefault();
         if (!Object.keys(errors).length) {
-            notify("You Signed in", "success");
+            try {
+                const { email, password } = data;
+                await createUserWithEmailAndPassword(auth, email, password);
+                notify("You Signed up successfully!", "success");
+                console.log(getAuth().currentUser?.email)
+                navigate("/home");
+
+            } catch (error) {
+                notify("Failed to sign up. Please try again later.", "error");
+                console.error("Error signing up:", error);
+            }
         } else {
-            notify("invalid data", "error");
+            notify("Invalid data. Please correct the errors.", "error");
             setTouched({
                 name: true,
                 email: true,
@@ -81,7 +94,7 @@ const SignUp = () => {
                                 ? styles.uncompleted
                                 : styles.formInput
                         }
-                        type="text"
+                        type="email"
                         name="email"
                         value={data.email}
                         onChange={changeHandler}
@@ -99,7 +112,7 @@ const SignUp = () => {
                                 ? styles.uncompleted
                                 : styles.formInput
                         }
-                        type="text"
+                        type="password"
                         name="password"
                         value={data.password}
                         onChange={changeHandler}
@@ -117,7 +130,7 @@ const SignUp = () => {
                                 ? styles.uncompleted
                                 : styles.formInput
                         }
-                        type="text"
+                        type="password"
                         name="confirmPassword"
                         value={data.confirmPassword}
                         onChange={changeHandler}
@@ -129,11 +142,13 @@ const SignUp = () => {
                 </div>
                 <div className={styles.formField}>
                     <div className={styles.checkBoxContainer}>
-                        <label>I accept terms of privacy policy </label>
+                        <label>
+                            I accept terms of privacy policy{" "}
+                        </label>
                         <input
                             type="checkbox"
                             name="isAccepted"
-                            value={data.isAccepted}
+                            checked={data.isAccepted}
                             onChange={changeHandler}
                             onFocus={focusHandler}
                         ></input>
