@@ -14,7 +14,7 @@ function Header() {
             .then(() => {
                 // Sign-out successful.
                 console.log('User signed out');
-                navigate('/signup')
+                navigate('/')
             })
             .catch((error) => {
                 // An error happened.

@@ -158,7 +158,7 @@ const SignUp = () => {
                     )}
                 </div>
                 <div className={styles.formButtons}>
-                    <Link to="/login">Login</Link>
+                    <Link to="/">Login</Link>
                     <button type="submit">Sign Up</button>
                 </div>
             </form>
