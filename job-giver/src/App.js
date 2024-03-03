@@ -27,8 +27,8 @@ function App() {
             {/* Render the header if the user is logged in */}
             {isLoggedIn && <Header />}
             <Routes>
-                <Route path="signup" element={<SignUp />} />
-                <Route path="login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/login" element={<Login />} />
                 {/* Redirect to signup if the user is not logged in */}
                 <Route path="/home" element={<Home/>} />
             </Routes>

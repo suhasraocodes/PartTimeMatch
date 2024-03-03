@@ -1,9 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
-
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { validate } from "../validate";
 import { notify } from "../toast";
 import styles from "./SignUp.module.css";
@@ -13,33 +13,38 @@ const Login = () => {
         email: "",
         password: "",
     });
-
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
-
+    const auth = getAuth();
+    const navigate = useNavigate();
     useEffect(() => {
         setErrors(validate(data, "login"));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, touched]);
 
     const changeHandler = (event) => {
-        if (event.target.name === "isAccepted") {
-            setData({ ...data, [event.target.name]: event.target.checked });
-        } else {
-            setData({ ...data, [event.target.name]: event.target.value });
-        }
+        setData({ ...data, [event.target.name]: event.target.value });
     };
 
     const focusHandler = (event) => {
         setTouched({ ...touched, [event.target.name]: true });
     };
 
-    const submitHandler = (event) => {
+    const submitHandler = async (event) => {
         event.preventDefault();
         if (!Object.keys(errors).length) {
-            notify("You Logged in", "success");
+            try {
+                const { email, password } = data;
+                await signInWithEmailAndPassword(auth, email, password);
+                notify("You Logged in", "success"); // Redirect to home page after successful login
+                console.log(auth.currentUser?.email);
+                navigate('/home')
+            } catch (error) {
+                notify("Failed to log in. Please try again.", "error");
+                console.error("Error logging in:", error);
+            }
         } else {
-            notify("invalid data", "error");
+            notify("Invalid data. Please correct the errors.", "error");
             setTouched({
                 email: true,
                 password: true,
@@ -77,7 +82,7 @@ const Login = () => {
                                 ? styles.uncompleted
                                 : styles.formInput
                         }
-                        type="text"
+                        type="password"
                         name="password"
                         value={data.password}
                         onChange={changeHandler}
