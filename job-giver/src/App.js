@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
-
+import SearchPage from "./functionality/Search";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -31,6 +31,7 @@ function App() {
                 <Route path="/" element={<Login />} />
                 {/* Redirect to signup if the user is not logged in */}
                 <Route path="/home" element={<Home/>} />
+                <Route path="/search" element={<SearchPage/>} />
             </Routes>
         </div>
     );
