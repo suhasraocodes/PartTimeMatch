@@ -7,6 +7,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
 import SearchPage from "./functionality/Search";
+import Team from "./components/Team";
+import { ToastContainer } from "react-toastify";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -23,14 +25,17 @@ function App() {
     }, []);
 
     return (
+
         <div className="App">
             {/* Render the header if the user is logged in */}
             {isLoggedIn && <Header />}
+            <ToastContainer/>
             <Routes>
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/" element={<Login />} />
                 {/* Redirect to signup if the user is not logged in */}
                 <Route path="/home" element={<Home/>} />
+                <Route path="/team" element={<Team/>} />
                 <Route path="/search" element={<SearchPage/>} />
             </Routes>
         </div>

@@ -1,62 +1,252 @@
+/* Search.css */
+
+/* Search container */
 .search-container {
-    max-width: 950px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  max-width: 950px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-right: 10px;
+  margin-left: -1px;
+  padding-left: 100px;
+}
+
+/* Form groups */
+.form-group {
+  margin-right: 10px;
+}
+
+.form-group:last-child {
+  margin-right: 0;
+}
+
+.form-label {
+  margin-right: 5px;
+  color: #555;
+}
+
+/* Form inputs and selects */
+.form-input,
+.form-select,
+.search-button {
+  font-size: 14px;
+  height: 35px;
+  padding: 8px 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-input,
+.form-select {
+  width: 200px;
+}
+
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>') no-repeat right 10px center/15px;
+}
+
+/* Search button */
+.search-button {
+  margin-top: 20px;
+  background: #5E5DF0;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+  font-weight: 500;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  word-break: break-word;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+/* Cards container */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-right: 250px;
+}
+
+/* Individual card */
+.card {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* Person info container */
+.person-info-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.person-info {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Team container */
+.team-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  border-left: 1px solid #dbc8c8;
+  height: 100%;
+  overflow-y: auto;
+  box-shadow: #555;
+}
+
+.team-container h2 {
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team-list li {
+  margin-bottom: 5px;
+}
+
+/* Loading indicator */
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  padding-right: 350px;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(57, 80, 212, 0.1);
+  border-left-color: #422bc4; /* Change color here */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .search-title {
-    width: 100%;
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-right: 10px;
-  }
-  
-  .form-group:last-child {
-    margin-right: 0;
-  }
-  
-  .form-label {
-    margin-right: 5px;
-    color: #555;
-  }
-  
-  .form-input,
-  .form-select {
-    width: 200px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  .form-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>') no-repeat right 10px center/15px;
-  }
-  
-  .search-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .search-button:hover {
-    background-color: #0056b3;
-  }
-  
+
+}
+/* Search.css */
+
+/* Button styles */
+.search-button,
+.add-to-team-button,
+.create-team-button {
+  font-size: 14px;
+  height: 35px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.search-button {
+  background-color: #5E5DF0;
+  color: #FFFFFF;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+.add-to-team-button,
+.create-team-button {
+  background-color: #009688; /* Change color as needed */
+  color: #FFFFFF;
+}
+
+.add-to-team-button:hover,
+.create-team-button:hover {
+  background-color: #00796b; /* Change color as needed */
+}
+
+/* Popup card styles */
+.person-info {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  position: relative; /* Required for positioning close button */
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #555;
+}

@@ -139,3 +139,17 @@ form .btn button{
 form .btn button:hover{
   background: #0F1035;
 }
+.createbutton{
+  height: 100%;
+  width: 100%;
+  border: 1px solid #DCF2F1;
+  border-radius: 10px;
+  outline: none;
+  background: #DCF2F1;
+  color: #365486;
+  font-size: 17px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
