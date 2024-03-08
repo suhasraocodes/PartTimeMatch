@@ -1,20 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Analytics from './Analytics';
 import Cards from './Cards';
+import Slider from './Slider';
 
-import Slider from './Slider'
-
-const Home = () => {
+const Home = ({ darkMode }) => {
   return (
-    <div>
-      <Slider/>
-     <Analytics/>
-     <Cards/>
-    
-     
+    <div className={darkMode ? 'dark' : ''}>
+      <Slider />
+      <Analytics />
+      <Cards />
       Hooooooooooom
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
