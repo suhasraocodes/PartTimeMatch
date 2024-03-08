@@ -39,6 +39,7 @@ function Header() {
                         </NavDropdown>
                     </Nav>
                     <Button onClick={handleLogout} variant="outline-danger">Logout</Button>
+                    &nbsp;&nbsp;
                     <Button onClick={() => setDarkMode(!darkMode)} variant={darkMode ? "outline-light" : "outline-dark"}>{darkMode ? "Light Mode" : "Dark Mode"}</Button>
                 </Navbar.Collapse>
             </Container>
