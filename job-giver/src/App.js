@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import { ContactUs } from "./utils/Feedback/nodemailer";
 import 'tailwindcss/tailwind.css';
 import Testtailwind from "./components/LoginSignup/testtailwind";  
+import Footer from "./components/Footer";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/testing" element={<Testtailwind/>} />
                 <Route path="/contactus" element={<ContactUs/>} />
             </Routes>
+            <Footer/>
         </div>
     );
 }

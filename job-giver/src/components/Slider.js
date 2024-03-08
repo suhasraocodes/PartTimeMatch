@@ -2,7 +2,9 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "tailwindcss/tailwind.css"; // Ensure you have Tailwind CSS included
 import './Slider.css'
+
 const settings = {
   dots: true,
   infinite: true,
@@ -34,14 +36,14 @@ const images = [
 
 const SliderComponent = () => {
   return (
-    <div className="slider-wrapper">
+    <div className="slider-wrapper w-full mx-auto px-4 lg:px-20 pt-4">
       <Slider {...settings}>
         {images.map((image) => (
           <div key={image.id}>
             <img
               src={image.src}
               alt={``}
-              className="slider-image"
+              className="slider-image w-full h-48 lg:h-72 object-cover mx-2 lg:mx-0"
             />
           </div>
         ))}
