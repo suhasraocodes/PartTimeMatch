@@ -9,10 +9,9 @@ import Home from "./components/Home";
 import SearchPage from "./functionality/Search";
 import Team from "./components/Team";
 import { ToastContainer } from "react-toastify";
-import { ContactUs } from "./utils/Feedback/nodemailer";
+import ContactUs from "./utils/Feedback/nodemailer"
 import 'tailwindcss/tailwind.css';
 import Testtailwind from "./components/LoginSignup/testtailwind";  
-
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -45,7 +44,6 @@ function App() {
                 <Route path="/testing" element={<Testtailwind/>} />
                 <Route path="/contactus" element={<ContactUs/>} />
             </Routes>
-          
         </div>
     );
 }

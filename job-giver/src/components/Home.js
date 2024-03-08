@@ -5,10 +5,10 @@ import Slider from './Slider';
 import Footer from './Footer'
 const Home = ({ darkMode }) => {
   return (
-    <div className={darkMode ? 'dark' : ''}>
-      <Slider />
-      <Analytics />
-      <Cards />
+    <div>
+    <Slider/>
+     <Analytics/>
+     <Cards/>
     </div>
   );
 };
