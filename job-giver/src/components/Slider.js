@@ -29,14 +29,15 @@ const settings = {
 };
 
 const images = [
-  { id: 1, src: "images/img1.jpg" },
-  { id: 2, src: "images/img2.jpg" },
-  { id: 3, src: "images/img3.jpg" },
+  { id: 1, src: "images/img6.jpg" },
+  { id: 2, src: "images/img4.jpg" },
+  { id: 3, src: "images/img5.jpg" },
+  { id: 3, src: "images/img7.jpg" }
 ];
 
 const SliderComponent = () => {
   return (
-    <div className="slider-wrapper w-full mx-auto px-4 lg:px-20 pt-4">
+    <div className="slider-wrapper w-half mx-auto px-4 lg:px-20 pt-4">
       <Slider {...settings}>
         {images.map((image) => (
           <div key={image.id}>
