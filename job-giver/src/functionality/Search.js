@@ -5,6 +5,7 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 import app from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
+
 const SearchPage = () => {
   const [skillsFilter, setSkillsFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
@@ -15,9 +16,9 @@ const SearchPage = () => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [teamName, setTeamName] = useState("");
   const [loading, setLoading] = useState(false); // State to track loading
-  const [ratings, setRatings] = useState({}); // State to store ratings
   const auth = getAuth(app);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Fetch ratings when component mounts
     fetchRatings();
@@ -25,16 +26,7 @@ const SearchPage = () => {
 
   const fetchRatings = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/ratings");
-      const ratingsData = response.data;
-      const calculatedRatings = {};
-      ratingsData.forEach((rating) => {
-        const email = rating.email;
-        const reviews = rating.reviews || [];
-        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-        calculatedRatings[email] = totalRating;
-      });
-      setRatings(calculatedRatings);
+      // You can implement this function to fetch ratings if needed
     } catch (error) {
       console.error("Error fetching ratings:", error);
     }
@@ -46,19 +38,19 @@ const SearchPage = () => {
       // Convert date objects to ISO string format
       const formattedStartDate = startDate.toString();
       const formattedEndDate = endDate.toString();
-  
+
       const url = `http://localhost:3001/api/seekers?skills=${skillsFilter}&location=${locationFilter}`;
       const response = await axios.get(url);
       // Introduce a delay of 2 seconds
       setTimeout(() => {
         setSearchResults(response.data);
         setLoading(false); // Set loading to false after search results are fetched
-        console.log('success');
+        console.log("success");
         setSelectedPerson(null); // Reset selected person
         console.log(response);
       }, 2000);
     } catch (error) {
-      console.error('Error searching:', error);
+      console.error("Error searching:", error);
       notify("Error searching. Please try again later.", "error");
       setLoading(false); // Set loading to false if there's an error
     }
@@ -82,14 +74,14 @@ const SearchPage = () => {
 
       // Make a PUT request to the backend to remove the member from the team
       await axios.put(`http://localhost:3001/api/remove-from-team/${encodeURIComponent(email)}`);
-    
+
       // Update the teamMembers state by filtering out the removed member
       setTeamMembers(teamMembers.filter((member) => member.email !== email));
-      
+
       // Display success toast
       notify("Removed from Team!", "success");
     } catch (error) {
-      console.error('Error removing from team:', error);
+      console.error("Error removing from team:", error);
       notify("Error removing from team. Please try again later.", "error");
     } finally {
       setLoading(false); // Reset loading state
@@ -101,26 +93,26 @@ const SearchPage = () => {
     if (teamName) {
       try {
         setLoading(true); // Set loading to true while making the API call
-  
+
         // Define the request body
         const requestBody = {
           createdBy: auth.currentUser.email, // Replace this with the actual email of the current user
-          members: teamMembers.map(member => member.email), // Extract emails of team members
+          members: teamMembers.map((member) => member.email), // Extract emails of team members
         };
         // Make a POST request to the API endpoint
-        await axios.post('http://localhost:3001/api/teams', requestBody);
-  
+        await axios.post("http://localhost:3001/api/teams", requestBody);
+
         // Display success toast
         notify("Team Created!", "success");
-  
+
         // Reset team name and members
         setTeamName("");
         setTeamMembers([]);
-        navigate('/team')
+        navigate("/team");
         // Reset loading state
         setLoading(false);
       } catch (error) {
-        console.error('Error creating team:', error);
+        console.error("Error creating team:", error);
         notify("Error creating team. Please try again later.", "error");
         setLoading(false); // Reset loading state in case of error
       }
@@ -199,8 +191,6 @@ const SearchPage = () => {
             <img src={person.photo} alt={person.name} className="card-image" />
             <div className="card-text">
               <h3>{person.name}</h3>
-              {/* Display sum of ratings */}
-              <p>Total Rating: {ratings[person.email]}</p>
             </div>
           </div>
         ))}
@@ -209,14 +199,17 @@ const SearchPage = () => {
       {selectedPerson && (
         <div className="person-info-container">
           <div className="person-info">
-            <span className="close" onClick={() => setSelectedPerson(null)}>&times;</span>
+            <span className="close" onClick={() => setSelectedPerson(null)}>
+              &times;
+            </span>
             <h2>{selectedPerson.name}</h2>
             <img src={selectedPerson.photo} alt={selectedPerson.name} className="person-image" />
             <p>Email: {selectedPerson.email}</p>
             <p>Age: {selectedPerson.age}</p>
             <p>Location: {selectedPerson.location}</p>
-            <p>Total Rating: {selectedPerson.ratings}</p>
-            <button onClick={handleAddToTeam} className="btn btn-primary">Add to Team</button>
+            <button onClick={handleAddToTeam} className="btn btn-primary">
+              Add to Team
+            </button>
           </div>
         </div>
       )}
@@ -229,13 +222,18 @@ const SearchPage = () => {
               <div>
                 <p>Name: {member.name}</p>
                 <p>Email: {member.email}</p>
-                <p>Total Rating: {ratings[member.email]}</p>
-                <button onClick={() => handleRemoveFromTeam(member.email)} className="btn btn-danger">Remove</button>
+                <button onClick={() => handleRemoveFromTeam(member.email)} className="btn btn-danger">
+                  Remove
+                </button>
               </div>
             </li>
           ))}
         </ul>
-        {teamMembers.length >= 2 && <button onClick={handleCreateTeam} className="btn btn-primary">Create Team</button>}
+        {teamMembers.length >= 2 && (
+          <button onClick={handleCreateTeam} className="btn btn-primary">
+            Create Team
+          </button>
+        )}
       </div>
     </div>
   );

@@ -33,6 +33,7 @@ function Header() {
                         <Nav.Link href="/search">Search</Nav.Link>
                         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/team">Your team</NavDropdown.Item>
+                            <NavDropdown.Item href="http://127.0.0.1:5000">Talk to assistant</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/contactus">Contactus</NavDropdown.Item>
                         </NavDropdown>

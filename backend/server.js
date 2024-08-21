@@ -145,6 +145,7 @@ app.put('/api/rate/:email', async (req, res) => {
   }
 });
 
+
 app.put('/api/reset-current-team', async (req, res) => {
   const { currentTeam } = req.query;
 
@@ -158,7 +159,24 @@ app.put('/api/reset-current-team', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+app.get('/api/ratings/:email', async (req, res) => {
+  const email = req.params.email;
+  
+  try {
+    // Find the seeker by email
+    const seeker = await Seeker.findOne({ email });
 
+    if (!seeker) {
+      return res.status(404).json({ message: 'Seeker not found' });
+    }
+
+    const ratings = seeker.ratings;
+    res.json(ratings);
+  } catch (error) {
+    console.error('Error fetching ratings:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
